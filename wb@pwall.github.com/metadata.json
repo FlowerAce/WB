@@ -1,0 +1,9 @@
+{
+  "shell-version": [
+    "3.38"
+  ],
+  "uuid": "wb@pwall.github.com",
+  "name": "WindowButtons",
+  "description": "This is an extension for Gnome 3.38 which puts minimize and close buttons in the top panel.",
+  "url": "https://github.com/PWall2222/WB"
+}
