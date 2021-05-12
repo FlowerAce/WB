@@ -1,5 +1,3 @@
-const Lang = imports.lang;
-
 const St = imports.gi.St;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
@@ -35,16 +33,16 @@ class Extension {
 	connectSignal() {
 		this.windowTracker = Shell.WindowTracker.get_default().connect(
 			"notify::focus-app",
-			Lang.bind(this, this.windowChanged)
+			this.windowChanged.bind(this)
 		);
 		this.overviewTracker.push(
 			Main.overview.connect(
 				"showing",
-				Lang.bind(this, this.overviewChanged)
+				this.overviewChanged.bind(this)
 			),
 			Main.overview.connect(
 				"hidden",
-				Lang.bind(this, this.overviewChanged)
+				this.overviewChanged.bind(this)
 			)
 		);
 	}
@@ -82,7 +80,7 @@ class Extension {
 			});
 			button.connect(
 				"button-press-event",
-				Lang.bind(this, this[buttonName])
+				this[buttonName].bind(this)
 			);
 			this.rightBox.add(button);
 		}
