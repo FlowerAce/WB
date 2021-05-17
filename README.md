@@ -4,7 +4,7 @@ This is an extension for Gnome 3.38 which puts minimize and close buttons in the
 
 ## Installation
 
-The only way to install for now is manually through git.
+You can install it through the GNOME extension webpage (link on the github info) or manually like this:
 
 ```bash
 git clone https://github.com/PWall2222/WB.git
