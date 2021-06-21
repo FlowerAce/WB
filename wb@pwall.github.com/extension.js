@@ -36,14 +36,8 @@ class Extension {
 			this.windowChanged.bind(this)
 		);
 		this.overviewTracker.push(
-			Main.overview.connect(
-				"showing",
-				this.overviewChanged.bind(this)
-			),
-			Main.overview.connect(
-				"hidden",
-				this.overviewChanged.bind(this)
-			)
+			Main.overview.connect("showing", this.overviewChanged.bind(this)),
+			Main.overview.connect("hidden", this.overviewChanged.bind(this))
 		);
 	}
 
@@ -61,8 +55,8 @@ class Extension {
 			"style.css",
 		]);
 
-		const themeContext = St.ThemeContext.get_for_stage(global.stage),
-			currentTheme = themeContext.get_theme();
+		const themeContext = St.ThemeContext.get_for_stage(global.stage);
+		const currentTheme = themeContext.get_theme();
 
 		currentTheme.load_stylesheet(Gio.file_new_for_path(cssPath));
 
@@ -78,10 +72,7 @@ class Extension {
 				style_class: `${buttonName} window-button`,
 				track_hover: true,
 			});
-			button.connect(
-				"button-press-event",
-				this[buttonName].bind(this)
-			);
+			button.connect("button-press-event", this[buttonName].bind(this));
 			this.rightBox.add(button);
 		}
 	}
