@@ -90,22 +90,15 @@ class Extension {
 		const windows = global.workspace_manager
 			.get_active_workspace()
 			.list_windows()
-			.filter(function (w) {
-				return w.get_window_type() !== Meta.WindowType.DESKTOP;
+			.filter((window) => {
+				const type = window.get_window_type() === Meta.WindowType.NORMAL;
+				const focus = window.appears_focused;
+				const hidden = window.minimized || window.is_hidden();
+				return type && focus && !hidden;
 			});
 		const sortedWindows = global.display.sort_windows_by_stacking(windows);
 
-		let i = sortedWindows.length;
-		while (i--) {
-			const window = sortedWindows[i];
-			if (window.minimized || window.is_hidden()) {
-				continue;
-			}
-
-			return window;
-		}
-
-		return null;
+		return sortedWindows[sortedWindows.length - 1];
 	}
 
 	minimize() {
