@@ -77,10 +77,21 @@ class Extension {
 		}
 	}
 
+	checkWindowType(window) {
+		const types = [
+			Meta.WindowType.NORMAL,
+			Meta.WindowType.DIALOG,
+			Meta.WindowType.MODAL_DIALOG,
+			Meta.WindowType.POPUP_MENU,
+		];
+		const windowType = window.get_window_type();
+		return types.some((type) => type === windowType);
+	}
+
 	getWindow() {
 		const workspace = global.workspace_manager.get_active_workspace();
 		const windows = workspace.list_windows().filter((window) => {
-			const type = window.get_window_type() === Meta.WindowType.NORMAL;
+			const type = this.checkWindowType(window);
 			const focus = window.appears_focused;
 			const hidden = window.minimized || window.is_hidden();
 			return type && focus && !hidden;
@@ -105,7 +116,8 @@ class Extension {
 			return;
 		}
 
-		const maximized = Meta.MaximizeFlags.HORIZONTAL | Meta.MaximizeFlags.VERTICAL;
+		const maximized =
+			Meta.MaximizeFlags.HORIZONTAL | Meta.MaximizeFlags.VERTICAL;
 
 		if (win.get_maximized() == maximized) {
 			win.unmaximize(maximized);
