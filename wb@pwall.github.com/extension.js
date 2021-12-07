@@ -15,11 +15,11 @@ class Extension {
 
 	windowChanged() {
 		const window = this.getWindow();
-		if (window) {
-			this.rightActor.show();
+		if (Main.overview.visible || !window) {
+			this.rightActor.hide();
 			return;
 		}
-		this.rightActor.hide();
+		this.rightActor.show();
 	}
 
 	overviewChanged() {
@@ -27,7 +27,9 @@ class Extension {
 			this.rightActor.hide();
 			return;
 		}
-		this.rightActor.show();
+		if (this.getWindow()) {
+			this.rightActor.show();
+		}
 	}
 
 	connectSignal() {
