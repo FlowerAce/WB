@@ -91,16 +91,13 @@ class Extension {
 	}
 
 	getWindow() {
-		const workspace = global.workspace_manager.get_active_workspace();
-		const windows = workspace.list_windows().filter((window) => {
-			const type = this.checkWindowType(window);
-			const focus = window.appears_focused;
-			const hidden = window.minimized || window.is_hidden();
-			return type && focus && !hidden;
-		});
-		const sortedWindows = global.display.sort_windows_by_stacking(windows);
-
-		return sortedWindows[sortedWindows.length - 1];
+		const win = global.display.get_focus_window();
+		const check =
+			global.workspace_manager.get_active_workspace() ===
+			win?.get_workspace();
+		if (win && check && this.checkWindowType(win)) {
+			return win;
+		}
 	}
 
 	minimize() {
