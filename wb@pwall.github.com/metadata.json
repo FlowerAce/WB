@@ -1,6 +1,8 @@
 {
   "shell-version": [
-    "3.38"
+    "3.38",
+    "40",
+    "41"
   ],
   "uuid": "wb@pwall.github.com",
   "name": "WindowButtons",
